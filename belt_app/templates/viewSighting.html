@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{sighting.location}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+<body>
+    <div class="">
+        <div class="container d-flex flex-row justify-content-between">
+            <p class="display-3"><a href="/" class="text-decoration-none text-black">Sasquatch Sighting</a></p>
+            <div class="">
+                <h2 class="display-4">{{user.first_name}} {{user.last_name}}</h2>
+                <a href="/all_sightings" class="btn btn-outline-dark">All Sightings</a>
+                <a href="/report_sighting" class="btn btn-outline-dark">Report a Sighting</a>
+                <a href="/logout" class="btn btn-outline-dark">Logout</a>
+            </div>
+        </div>
+        <div class="container">
+            <p class="display-2">{{sighting.location}} on {{time}}</p>
+            <div class="row">
+                <dt class="col-sm-3">What Happened</dt>
+                <dd class="col-sm-9">{{sighting.what_happened}}</dd>
+                <dt class="col-sm-3"># of Sasquatches</dt>
+                <dd class="col-sm-9">{{sighting.num_of_sas}}</dd>
+                <dt class="col-sm-3">Reported By</dt>
+                <dd class="col-sm-9">{{sighting.name_reported}}</dd>
+                {% if skeptics %}
+                <dt class="col-sm-3">Skeptics</dt>
+                <dd class="col-sm-9">
+                    <ol class="list-group list-group-numbered">
+                        {% for skeptic in skeptics %}
+                        <li class="list-group-item">{{skeptic.first_name}} {{skeptic.last_name}}</li>
+                        {% endfor %}
+                    </ol>
+                </dd>
+                {% endif %}
+            </div>
+            {% if believed is false %}
+            <div class="d-grid m-5">
+                <a href="/skeptic/{{sighting.id}}" class="btn btn-outline-dark">Im Skeptical</a>
+            </div>
+            {% else %}
+            <div class="d-grid m-5">
+                <a href="/believe/{{sighting.id}}" class="btn btn-outline-dark">I believe it</a>
+            </div>
+            {% endif %}
+        </div>
+        
+    </div>
+</body>
+</html>

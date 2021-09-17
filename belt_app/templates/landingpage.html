@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcom to the landing</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="container d-flex flex-row justify-content-between">
+            <p class="display-3"><a href="/" class="text-decoration-none text-black">Sasquatch Sighting</a></p>
+            <div class="">
+                <h2 class="display-4">{{user.first_name}} {{user.last_name}}</h2>
+                <a href="/all_sightings" class="btn btn-outline-dark">All Sightings</a>
+                <a href="/report_sighting" class="btn btn-outline-dark">Report a Sighting</a>
+                <a href="/logout" class="btn btn-outline-dark">Logout</a>
+            </div>
+        </div>
+        {% if sightings is not false %}
+        <h2 class="title">Your Sightings</h2>
+        <table class="table table-dark table-striped table-hover">
+            <thead>
+                <th>Location</th>
+                <th>Reported At</th>
+                <th>Reported By</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+                {% for sighting in sightings %}
+                <tr>
+                    <td>{{sighting.location}}</td>
+                    <td>{{sighting.reported_at}}</td>
+                    <td>{{sighting.name_reported}}</td>
+                    <td>
+                        <a href="/view/{{sighting.id}}" class="link-light">View</a>
+                        {% if sighting.reported_by == user.id %}
+                        <a href="/edit/{{sighting.id}}" class="link-light">Edit</a>
+                        <a href="/delete/{{sighting.id}}" class="link-light">Delete</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="display-3">Looks like you haven't found a Sasquatch yet</p>
+        {% endif %}
+    </div>
+    
+</body>
+</html>

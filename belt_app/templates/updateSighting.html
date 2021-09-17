@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report a Sighting</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="container d-flex flex-row justify-content-between">
+            <p class="display-3"><a href="/" class="text-decoration-none text-black">Sasquatch Sighting</a></p>
+            <div class="">
+                <h2 class="display-4">{{user.first_name}} {{user.last_name}}</h2>
+                <a href="/all_sightings" class="btn btn-outline-dark">All Sightings</a>
+                <a href="/report_sighting" class="btn btn-outline-dark">Report a Sighting</a>
+                <a href="/logout" class="btn btn-outline-dark">Logout</a>
+            </div>
+        </div>
+        <form action="/updateSighting/{{sighting.id}}" class="form" method="POST">
+            <h3 class="display-2 text-center mb-3">Update a Sighting</h3>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="alert-danger alert">
+                {% for message in messages %}
+                <p>{{message}}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+            <div class="form-floating mb-3 text-black">
+                <input type="text" class="form-control" id="floatingInput" name="location" placeholder="location" required value="{{sighting.location}}">
+                <label for="location">Location</label>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea class="form-control" placeholder="Leave a comment here" id="what_happened" name="what_happened"
+                    style="height: 150px" required>{{sighting.what_happened}}</textarea>
+                <label for="what_happened">What Happened</label>
+            </div>
+            <div class="form-floating mb-3 text-black">
+                <input type="date" class="form-control" id="floatingInput" name="reported_at" placeholder="reported_at" required value="{{sighting.reported_at}}">
+                <label for="location">Date of Siting</label>
+            </div>
+            <div class="form-floating mb-3 text-black">
+                <input type="number" class="form-control" id="floatingInput" name="num_of_sas" placeholder="num_of_sas" min="1" required value="{{sighting.num_of_sas}}">
+                <label for="num_of_sas"># of Sasquatches</label>
+            </div>
+            <div class="d-grid gap-2">
+                <input type="submit" class="btn btn-outline-dark mb-3" value="Update">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
